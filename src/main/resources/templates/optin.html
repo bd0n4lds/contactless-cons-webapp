@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Contactless Cons - Optin</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<div class="container">
+
+    <div class="card bg-light ">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 ">Contactless Cons</h4>
+            <p class="">Enter Info</p>
+
+            <form th:action="@{/submit/}" method="post" role="form">
+                <div class="form-group input-group ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input id ="fullName" name="fullName" class="form-control" placeholder="Full name" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input id = "email" name="email" class="form-control" placeholder="Email address" type="email">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                    </div>
+                    <input id ="phone" name="phone" class="form-control" placeholder="Phone number" type="text">
+                </div> <!-- form-group// -->
+                <div class="checkbox">
+                    <label><input type="checkbox"> I agree to the </label>
+                </div>
+                <div class="form-group input-group">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Submit  </button>
+                </div>
+                </div> <!<!-- form-group// -->
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+<!--container end.//-->
+<br><br>
+</body>
+</html>
