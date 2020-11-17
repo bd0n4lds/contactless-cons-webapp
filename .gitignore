@@ -46,11 +46,15 @@ $RECYCLE.BIN/
 # Operating System Files
 # =========================
 
+### VS Code ###
 .vscode/*
 *.code-workspace
 
 # IntelliJ
 *.iml
+*.iws
+*.iml
+*.ipr
 .idea/
 .idea/workspace.xml
 .idea/tasks.xml
@@ -61,3 +65,18 @@ $RECYCLE.BIN/
 .idea/caches
 
 .PVS-Studio/
+node_modules/
+.vscode/
+settings.json
+secretnotes.md
+imports/lib/
+public/fonts/
+target/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
