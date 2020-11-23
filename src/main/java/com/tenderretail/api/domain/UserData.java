@@ -22,7 +22,7 @@ import java.util.List;
 
 public class UserData {
 
-    List<User> data;
+    private List<User> data;
 
     public List<User> getData() {
         return data;
