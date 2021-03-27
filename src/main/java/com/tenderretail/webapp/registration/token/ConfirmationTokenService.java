@@ -16,21 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.api.domain;
+package com.tenderretail.webapp.registration.token;
 
-import com.tenderretail.webapp.user.User;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-public class UserData {
+@Service
+@AllArgsConstructor
+public class ConfirmationTokenService {
 
-    private List<User> data;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public List<User> getData() {
-        return data;
+    public void saveConfirmationToken(ConfirmationToken token) {
+        confirmationTokenRepository.save(token);
     }
 
-    public void setData(List<User> data) {
-        this.data = data;
+    public Optional<ConfirmationToken> getToken(String token) {
+        return confirmationTokenRepository.findByToken(token);
+    }
+
+    public int setConfirmedAt(String token) {
+        return confirmationTokenRepository.updateConfirmedAt(
+                token, LocalDateTime.now());
     }
 }

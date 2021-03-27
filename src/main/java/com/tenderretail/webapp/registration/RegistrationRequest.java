@@ -16,21 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.api.domain;
+package com.tenderretail.webapp.registration;
 
-import com.tenderretail.webapp.user.User;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.List;
-
-public class UserData {
-
-    private List<User> data;
-
-    public List<User> getData() {
-        return data;
-    }
-
-    public void setData(List<User> data) {
-        this.data = data;
-    }
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class RegistrationRequest {
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String password;
 }

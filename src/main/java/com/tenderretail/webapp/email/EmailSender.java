@@ -16,21 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.api.domain;
+package com.tenderretail.webapp.email;
 
-import com.tenderretail.webapp.user.User;
-
-import java.util.List;
-
-public class UserData {
-
-    private List<User> data;
-
-    public List<User> getData() {
-        return data;
-    }
-
-    public void setData(List<User> data) {
-        this.data = data;
-    }
+public interface EmailSender {
+    void send(String to, String email);
 }

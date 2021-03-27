@@ -16,21 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.api.domain;
+package com.tenderretail.utils;
 
-import com.tenderretail.webapp.user.User;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.function.Predicate;
 
-public class UserData {
-
-    private List<User> data;
-
-    public List<User> getData() {
-        return data;
-    }
-
-    public void setData(List<User> data) {
-        this.data = data;
+@Service
+public class EmailValidator implements Predicate<String> {
+    @Override
+    public boolean test(String s) {
+//        TODO: Regex to validate email
+        return true;
     }
 }
