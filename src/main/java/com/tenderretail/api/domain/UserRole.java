@@ -18,19 +18,7 @@
 
 package com.tenderretail.api.domain;
 
-import com.tenderretail.webapp.user.User;
-
-import java.util.List;
-
-public class UserData {
-
-    private List<User> data;
-
-    public List<User> getData() {
-        return data;
-    }
-
-    public void setData(List<User> data) {
-        this.data = data;
-    }
+public enum UserRole {
+    USER,
+    ADMIN
 }

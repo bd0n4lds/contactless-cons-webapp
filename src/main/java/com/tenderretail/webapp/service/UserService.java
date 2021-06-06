@@ -16,28 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.webapp.user;
+package com.tenderretail.webapp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
 
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                String.format(USER_NOT_FOUND_MSG, email)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 }

@@ -18,39 +18,50 @@
 
 package com.tenderretail.webapp.security;
 
+import com.tenderretail.webapp.auth.WebAppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.servlet.http.Cookie;
-import java.net.CookieStore;
 import java.util.concurrent.TimeUnit;
-
-import static com.tenderretail.webapp.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final PasswordEncoder passwordEncoder;
+public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+    private WebAppUserDetailsService userDetailsService;
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(11));
+        return provider;
+    }
+
+    @Bean
+    public GrantedAuthoritiesMapper authoritiesMapper(){
+        SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
+        authorityMapper.setConvertToUpperCase(true);
+        authorityMapper.setDefaultAuthority("USER");
+        return authorityMapper;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -59,7 +70,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**").hasRole(STUDENT.name())
+                //.antMatchers("/api/**").hasRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -82,38 +93,5 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/login");
-    }
-
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails annaSmithUser = User.builder()
-                .username("annasmith")
-                .password(passwordEncoder.encode("password"))
-                .authorities(STUDENT.getGrantedAuthorities())
-                .build();
-
-        UserDetails lindaUser = User.builder()
-                .username("linda")
-                .password(passwordEncoder.encode("password123"))
-                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
-
-        UserDetails tomUser = User.builder()
-                .username("tom")
-                .password(passwordEncoder.encode("password123"))
-                .authorities(ADMINTRAINEE.getGrantedAuthorities())
-                .build();
-
-        return new InMemoryUserDetailsManager(
-                annaSmithUser,
-                lindaUser,
-                tomUser
-        );
-
-    }
-
-    public static void main(String[] args) {
-        System.out.println(TimeUnit.DAYS.toSeconds(1));
     }
 }

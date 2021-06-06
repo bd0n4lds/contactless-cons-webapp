@@ -17,7 +17,7 @@
  */
 
 package com.tenderretail.webapp.registration.token;
-import com.tenderretail.webapp.user.User;
+import com.tenderretail.webapp.auth.WebAppUserPrincipal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,12 +59,12 @@ public class ConfirmationToken {
             nullable = false,
             name = "app_user_id"
     )
-    private User user;
+    private WebAppUserPrincipal user;
 
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
-                             User user) {
+                             WebAppUserPrincipal user) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;

@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tenderretail.webapp.user;
+package com.tenderretail.webapp.auth;
 
-public enum UserRole {
-    USER,
-    ADMIN
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long>{
+    User findByUsername(String username);
 }

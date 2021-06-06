@@ -19,12 +19,11 @@
 package com.tenderretail.webapp.registration;
 
 import com.tenderretail.utils.EmailValidator;
+import com.tenderretail.webapp.auth.User;
 import com.tenderretail.webapp.email.EmailSender;
 import com.tenderretail.webapp.registration.token.ConfirmationToken;
 import com.tenderretail.webapp.registration.token.ConfirmationTokenService;
-import com.tenderretail.webapp.user.User;
-import com.tenderretail.webapp.user.UserRole;
-import com.tenderretail.webapp.user.UserService;
+import com.tenderretail.webapp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,16 +47,7 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
 
-        String token = appUserService.signUpUser(
-                new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        UserRole.USER
-
-                )
-        );
+        String token = appUserService.signUpUser(new User());
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(
@@ -85,8 +75,7 @@ public class RegistrationService {
         }
 
         confirmationTokenService.setConfirmedAt(token);
-        userService.enableUser(
-                confirmationToken.getUser().getEmail());
+        userService.enableUser(confirmationToken.getUser().getEmail());
         return "confirmed";
     }
 
