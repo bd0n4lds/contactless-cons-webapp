@@ -26,12 +26,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class WebAppUserDetailsService implements UserDetailsService {
+public class UsersDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final AuthGroupRepository authGroupRepository;
 
-    public WebAppUserDetailsService(UserRepository userRepository, AuthGroupRepository authGroupRepository) {
+    public UsersDetailsService(UserRepository userRepository, AuthGroupRepository authGroupRepository) {
         super();
         this.userRepository = userRepository;
         this.authGroupRepository = authGroupRepository;
@@ -44,6 +44,6 @@ public class WebAppUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("cannot find username: " + username);
         }
         List<AuthGroup> authGroups = this.authGroupRepository.findByUsername(username);
-        return new WebAppUserPrincipal(user, authGroups);
+        return new UserPrincipal(user, authGroups);
     }
 }

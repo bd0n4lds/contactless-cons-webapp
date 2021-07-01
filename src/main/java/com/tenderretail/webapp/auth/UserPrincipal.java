@@ -24,12 +24,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-public class WebAppUserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private User user;
     private List<AuthGroup> authGroups;
 
-    public WebAppUserPrincipal(User user, List<AuthGroup> authGroups){
+    public UserPrincipal(User user, List<AuthGroup> authGroups){
         super();
         this.user = user;
         this.authGroups = authGroups;

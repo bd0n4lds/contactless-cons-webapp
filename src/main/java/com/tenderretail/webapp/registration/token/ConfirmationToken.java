@@ -18,7 +18,6 @@
 
 package com.tenderretail.webapp.registration.token;
 import com.tenderretail.webapp.auth.User;
-import com.tenderretail.webapp.auth.WebAppUserPrincipal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

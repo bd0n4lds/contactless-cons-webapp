@@ -18,7 +18,7 @@
 
 package com.tenderretail.webapp.security;
 
-import com.tenderretail.webapp.auth.WebAppUserDetailsService;
+import com.tenderretail.webapp.auth.UsersDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private WebAppUserDetailsService userDetailsService;
+    private UsersDetailsService userDetailsService;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -52,7 +52,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     }
 
     @Bean
-    public GrantedAuthoritiesMapper authoritiesMapper(){
+    public GrantedAuthoritiesMapper authoritiesMapper() {
         SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
         authorityMapper.setConvertToUpperCase(true);
         authorityMapper.setDefaultAuthority("USER");
